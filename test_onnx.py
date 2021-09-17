@@ -173,7 +173,9 @@ def main(args):
             if args.test_fp16:
                 input_data = input_data.astype('float16')
             raw_result = session.run([], {input_name: input_data})
-            if 'mobilenet_v1_tfslim' in args.model:
+            if 'mobilenet_v1' in args.model:
+                ##if onnx model,the last node has Softmax
+                ##no use softmax
                 res = raw_result[0][0]
             else:
                 res = postprocess(raw_result)
